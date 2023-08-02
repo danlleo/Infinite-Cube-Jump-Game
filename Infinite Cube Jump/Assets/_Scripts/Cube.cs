@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Cube : MonoBehaviour
+public class Cube : MonoBehaviour, IVisible
 {
     [SerializeField] private Transform _raycastPosition;
 
@@ -39,5 +39,10 @@ public class Cube : MonoBehaviour
         {
             gameObject.AddComponent<Rigidbody>();
         }
+    }
+
+    public void OnInvisible()
+    {
+        print("Game Over");
     }
 }

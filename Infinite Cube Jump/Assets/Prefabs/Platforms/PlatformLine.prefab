@@ -44,7 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6f1d6454e3d201459b2c6eba4710ec1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _platformVariants:
-  - {fileID: 1113112369339171641, guid: c23beb469e79fd4409971d007497b278, type: 3}
-  - {fileID: 6758953970355865153, guid: 2626407ba030aaf4b835c1fdaf574e68, type: 3}
-  - {fileID: 6944705361102200892, guid: 378dfeafb165155469e49c9a81549ac3, type: 3}
+  _movingSpeed: 2
+  _spawnDistanceFromCenter: 20

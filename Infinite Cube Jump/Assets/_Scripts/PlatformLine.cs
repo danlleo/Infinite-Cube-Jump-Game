@@ -1,20 +1,20 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlatformLine : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> _platformVariants;
+    [SerializeField] private float _movingSpeed = 2f;
+    [SerializeField] private float _spawnDistanceFromCenter = 20f;
 
     private int _platformSpawnCounter;
 
     private float _platformXGap;
-    private float _previousPlatformXValue;
 
     private Vector3 _lineDirection;
     private Vector3 _spawnPosition;
 
     private void Start()
     {
+        _spawnPosition = transform.position;
         SpawnPlatforms();
     }
 
@@ -22,17 +22,18 @@ public class PlatformLine : MonoBehaviour
     {
         _platformSpawnCounter = platformSpawnCounter;
         _platformXGap = platformXGap;
-        _lineDirection = lineDirection;   
+        _lineDirection = lineDirection;
     }
 
     private void SpawnPlatforms()
     {
         for (int i = 0; i < _platformSpawnCounter; i++)
         {
-            _spawnPosition += transform.forward + _lineDirection * _platformXGap;
+            Platform platform = PlatformPool.Instance.GetPooledObject();
+            platform.transform.SetParent(transform);
+            platform.transform.position = _spawnPosition;
 
-            GameObject randomPlatform = _platformVariants[Random.Range(0, _platformVariants.Count)];
-            GameObject spawnedPlatform = Instantiate(randomPlatform, _spawnPosition, Quaternion.identity, transform);
+            _spawnPosition = platform.GetGapAnchorPosition() + -_lineDirection * _platformXGap;
         }
     }
 }
