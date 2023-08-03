@@ -5159,15 +5159,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_LocalRotation: {x: 0.053341553, y: -0.9461228, z: 0.2409009, w: 0.20969774}
-  m_LocalPosition: {x: 4.033838, y: 6.188208, z: 8.594723}
+  m_LocalRotation: {x: -0.08008812, y: 0.91927683, z: -0.28972313, w: -0.254119}
+  m_LocalPosition: {x: 4.98, y: 8.02, z: 8.66}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 240022182}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 34.986, y: -149.095, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6072,7 +6072,6 @@ GameObject:
   - component: {fileID: 1605977339}
   - component: {fileID: 1605977338}
   - component: {fileID: 1605977337}
-  - component: {fileID: 1605977340}
   m_Layer: 0
   m_Name: CubeVisual
   m_TagString: Untagged
@@ -6088,7 +6087,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1605977335}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.35, z: 0}
+  m_LocalPosition: {x: 0, y: -0.122, z: 0}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -6166,18 +6165,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1605977335}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1605977340
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1605977335}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 602a06009d7fb5f44abb66808c41526b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1628806336
 GameObject:
   m_ObjectHideFlags: 0
@@ -6253,8 +6240,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1676832309}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
-  m_LocalScale: {x: 2, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.25, z: 0}
+  m_LocalScale: {x: 2, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 865575106}
@@ -6396,8 +6383,8 @@ MonoBehaviour:
     type: 3}
   _zLineAxisGap: 2.25
   _xPlatformAxisGap: 2.5
-  _awakeSpawnCounter: 1
-  _platformsInLineSpawnCounter: 20
+  _awakeSpawnCounter: 8
+  _platformsInLineSpawnCounter: 7
 --- !u!4 &1769871496
 Transform:
   m_ObjectHideFlags: 0

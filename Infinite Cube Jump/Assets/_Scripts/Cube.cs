@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Cube : MonoBehaviour, IVisible
+public class Cube : MonoBehaviour
 {
     [SerializeField] private Transform _raycastPosition;
 
