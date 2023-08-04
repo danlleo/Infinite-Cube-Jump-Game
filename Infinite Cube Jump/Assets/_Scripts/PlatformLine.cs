@@ -37,8 +37,8 @@ public class PlatformLine : MonoBehaviour
 
         if (ReferenceEquals(senderPlatformLine, this))
         {
-            SpawnSinglePlatform();
             RemoveDispalyedPlatform(e.RecievedPlatform);
+            SpawnSinglePlatform();
         }
     }
 
@@ -60,14 +60,14 @@ public class PlatformLine : MonoBehaviour
             platform.Initalize(this, _lineDirection);
 
             AddDisplayedPlatform(platform);
-            _spawnPosition = platform.GetGapAnchorPosition() + -_lineDirection * _platformXGap;
+            _spawnPosition = platform.GetGapAnchorPosition() - _lineDirection * _platformXGap;
         }
     }
 
     private void SpawnSinglePlatform()
     {
         _spawnPosition = GetLastDisplayedPlatform()
-            .GetGapAnchorPosition() + -_lineDirection * _platformXGap;
+            .GetGapAnchorPosition() - _lineDirection * _platformXGap;
         
         Platform platform = PlatformPool.Instance.GetPooledObject();
         platform.transform.SetParent(transform);

@@ -18,6 +18,7 @@ public class ScoreUI : MonoBehaviour
 
     private void Platform_OnCubeGrounded(object sender, OnCubeGroundedArgs e)
     {
-        _scoreText.text = e.ScoreToAdd.ToString();
+        Score.Add(e.ScoreToAdd);
+        _scoreText.text = Score.Current.ToString();
     }
 }

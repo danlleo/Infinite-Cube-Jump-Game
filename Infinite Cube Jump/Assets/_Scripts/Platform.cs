@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Platform : MonoBehaviour, IPlatform
 {
-    private const float CAMERA_SAFETY_MARGIN = 1f;
+    private const float CAMERA_SAFETY_MARGIN = 300f;
 
     public static event EventHandler<OnCubeGroundedArgs> OnCubeGrounded;
     public static event EventHandler<OnPlatformDisappearedArgs> OnPlatformDisappeared;
@@ -41,7 +41,7 @@ public class Platform : MonoBehaviour, IPlatform
 
     public void OnGrounded(GameObject cube)
     {
-        OnCubeGrounded?.Invoke(this, new OnCubeGroundedArgs(_scoreToAdd));
+        OnCubeGrounded?.Invoke(this, new OnCubeGroundedArgs(_scoreToAdd, _platformLine));
         cube.transform.SetParent(transform);
         StartCoroutine(LandingAnimationRoutine());
     }
@@ -63,7 +63,7 @@ public class Platform : MonoBehaviour, IPlatform
         if (_lineDirection == Vector3.right)
         {
             // If the platform is behind the left side of the screen
-            if (screenPosition.x < 0)
+            if (screenPosition.x < -CAMERA_SAFETY_MARGIN)
             {
                 transform.SetParent(null);
                 OnPlatformDisappeared?.Invoke(_platformLine, new OnPlatformDisappearedArgs(this));
@@ -73,7 +73,7 @@ public class Platform : MonoBehaviour, IPlatform
         else if (_lineDirection == Vector3.left)
         {
             // If the platform is behind the right side of the screen
-            if (screenPosition.x > _screenWidth)
+            if (screenPosition.x > _screenWidth + CAMERA_SAFETY_MARGIN)
             {
                 transform.SetParent(null);
                 OnPlatformDisappeared?.Invoke(_platformLine, new OnPlatformDisappearedArgs(this));

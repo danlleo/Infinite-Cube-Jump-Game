@@ -8,9 +8,7 @@ public class PlatformPool : Singleton<PlatformPool>
     [SerializeField] private List<Platform> _platformPrefabList;
 
     protected override void Awake()
-    {
-        base.Awake();
-    }
+        => base.Awake();
 
     public Platform GetPooledObject()
     {

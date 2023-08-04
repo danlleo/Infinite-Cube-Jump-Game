@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b406a6af458b6d4e845a9a3bd16d3a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _platformRenderer: {fileID: 1207306891487957466}
   _gapAnchorPosition: {fileID: 4986731557046472457}
   _scoreToAdd: 3
 --- !u!1 &8928543311466366086

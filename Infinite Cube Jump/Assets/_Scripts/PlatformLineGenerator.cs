@@ -4,7 +4,6 @@ using UnityEngine;
 public class PlatformLineGenerator : MonoBehaviour
 {
     [SerializeField] private Transform _levelTransform;
-    [SerializeField] private GameObject _linePrefab;
 
     [SerializeField] private float _zLineAxisGap;
     [SerializeField] private float _xPlatformAxisGap;
@@ -14,26 +13,55 @@ public class PlatformLineGenerator : MonoBehaviour
 
     private Vector3 _spawnPosition;
 
-    private Queue<GameObject> _platformLinesQueue = new();
+    private List<PlatformLine> _displayedPlatformLine = new();
+
+    private int _platformCount;
 
     private void Awake()
     {
         SpawnLinesOnAwake();
     }
 
+    private void OnEnable()
+    {
+        Platform.OnCubeGrounded += Platform_OnCubeGrounded;
+    }
+
+    private void OnDisable()
+    {
+        Platform.OnCubeGrounded -= Platform_OnCubeGrounded;
+    }
+
+    private void Platform_OnCubeGrounded(object sender, OnCubeGroundedArgs e)
+    {
+        // If received platform isn't previous one
+        if (!ReferenceEquals(e.GroundedPlatformLine, _displayedPlatformLine[0]))
+        {
+            LinePool.Instance.ReturnToPool(_displayedPlatformLine[0]);
+            _displayedPlatformLine.Remove(_displayedPlatformLine[0]);
+            SpawnSingleLine();
+        }
+    }
+
     private void SpawnLinesOnAwake()
     {
         for (int i = 0; i < _awakeSpawnCounter; i++)
         {
-            _spawnPosition += Vector3.forward * _zLineAxisGap;
-            
-            GameObject spawnedLine = Instantiate(_linePrefab, _spawnPosition, Quaternion.identity, _levelTransform);
-            Vector3 lineDirection = i % 2 == 0 ? Vector3.right : Vector3.left;
-
-            if (spawnedLine.TryGetComponent(out PlatformLine platformLine))
-                platformLine.Initialize(_platformsInLineSpawnCounter, _xPlatformAxisGap, lineDirection);
-
-            _platformLinesQueue.Enqueue(spawnedLine);
+            SpawnSingleLine();
         }
+    }
+
+    private void SpawnSingleLine()
+    {
+        _platformCount++;
+        _spawnPosition += Vector3.forward * _zLineAxisGap;
+
+        PlatformLine spawnedLine = LinePool.Instance.GetPooledObject();
+        Vector3 lineDirection = _platformCount % 2 == 0 ? Vector3.right : Vector3.left;
+        
+        _displayedPlatformLine.Add(spawnedLine);
+
+        spawnedLine.transform.position = _spawnPosition;
+        spawnedLine.Initialize(_platformsInLineSpawnCounter, _xPlatformAxisGap, lineDirection);
     }
 }
