@@ -6477,7 +6477,7 @@ MonoBehaviour:
   _levelTransform: {fileID: 174109581}
   _zLineAxisGap: 2.25
   _xPlatformAxisGap: 2.5
-  _awakeSpawnCounter: 3
+  _awakeSpawnCounter: 4
   _platformsInLineSpawnCounter: 5
 --- !u!4 &1769871496
 Transform:

@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlatformLine : MonoBehaviour
 {
     [SerializeField] private float _movingSpeed = 2f;
-    [SerializeField] private float _spawnDistanceFromCenter = 20f;
+    [SerializeField] private float _spawnDistanceFromCenter = 15f;
 
     private int _platformSpawnCounter;
 
@@ -17,7 +17,6 @@ public class PlatformLine : MonoBehaviour
 
     private void Start()
     {
-        _spawnPosition = transform.position;
         SpawnMultiplePlatforms();
     }
 
@@ -31,17 +30,6 @@ public class PlatformLine : MonoBehaviour
         Platform.OnPlatformDisappeared -= Platform_OnPlatformDisappear;
     }
 
-    private void Platform_OnPlatformDisappear(object sender, OnPlatformDisappearedArgs e)
-    {
-        PlatformLine senderPlatformLine = sender as PlatformLine;
-
-        if (ReferenceEquals(senderPlatformLine, this))
-        {
-            RemoveDispalyedPlatform(e.RecievedPlatform);
-            SpawnSinglePlatform();
-        }
-    }
-
     public void Initialize(int platformSpawnCounter, float platformXGap, Vector3 lineDirection)
     {
         _platformSpawnCounter = platformSpawnCounter;
@@ -49,8 +37,21 @@ public class PlatformLine : MonoBehaviour
         _lineDirection = lineDirection;
     }
 
-    private void SpawnMultiplePlatforms()
+    public void Reset()
     {
+        foreach (Platform platform in _displayedPlatformList)
+        {
+            platform.transform.SetParent(null);
+            PlatformPool.Instance.ReturnToPool(platform);
+        }
+
+        _displayedPlatformList.Clear();
+    }
+
+    public void SpawnMultiplePlatforms()
+    {
+        _spawnPosition = transform.position;
+
         for (int i = 0; i < _platformSpawnCounter; i++)
         {
             Platform platform = PlatformPool.Instance.GetPooledObject();
@@ -61,6 +62,17 @@ public class PlatformLine : MonoBehaviour
 
             AddDisplayedPlatform(platform);
             _spawnPosition = platform.GetGapAnchorPosition() - _lineDirection * _platformXGap;
+        }
+    }
+    
+    private void Platform_OnPlatformDisappear(object sender, OnPlatformDisappearedArgs e)
+    {
+        PlatformLine senderPlatformLine = sender as PlatformLine;
+
+        if (ReferenceEquals(senderPlatformLine, this))
+        {
+            RemoveDispalyedPlatform(e.RecievedPlatform);
+            SpawnSinglePlatform();
         }
     }
 

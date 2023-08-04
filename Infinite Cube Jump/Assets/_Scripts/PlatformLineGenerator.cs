@@ -13,7 +13,7 @@ public class PlatformLineGenerator : MonoBehaviour
 
     private Vector3 _spawnPosition;
 
-    private List<PlatformLine> _displayedPlatformLine = new();
+    private List<PlatformLine> _displayedPlatformLineList = new();
 
     private int _platformCount;
 
@@ -34,12 +34,15 @@ public class PlatformLineGenerator : MonoBehaviour
 
     private void Platform_OnCubeGrounded(object sender, OnCubeGroundedArgs e)
     {
+        PlatformLine firstDisplayedPlatformLine = _displayedPlatformLineList[0];
+
         // If received platform isn't previous one
-        if (!ReferenceEquals(e.GroundedPlatformLine, _displayedPlatformLine[0]))
+        if (!ReferenceEquals(e.GroundedPlatformLine, firstDisplayedPlatformLine))
         {
-            LinePool.Instance.ReturnToPool(_displayedPlatformLine[0]);
-            _displayedPlatformLine.Remove(_displayedPlatformLine[0]);
-            SpawnSingleLine();
+            firstDisplayedPlatformLine.Reset();
+            LinePool.Instance.ReturnToPool(firstDisplayedPlatformLine);
+            _displayedPlatformLineList.Remove(firstDisplayedPlatformLine);
+            SpawnSingleLine(true);  
         }
     }
 
@@ -51,7 +54,7 @@ public class PlatformLineGenerator : MonoBehaviour
         }
     }
 
-    private void SpawnSingleLine()
+    private void SpawnSingleLine(bool spawnPlatforms = false)
     {
         _platformCount++;
         _spawnPosition += Vector3.forward * _zLineAxisGap;
@@ -59,9 +62,12 @@ public class PlatformLineGenerator : MonoBehaviour
         PlatformLine spawnedLine = LinePool.Instance.GetPooledObject();
         Vector3 lineDirection = _platformCount % 2 == 0 ? Vector3.right : Vector3.left;
         
-        _displayedPlatformLine.Add(spawnedLine);
+        _displayedPlatformLineList.Add(spawnedLine);
 
         spawnedLine.transform.position = _spawnPosition;
         spawnedLine.Initialize(_platformsInLineSpawnCounter, _xPlatformAxisGap, lineDirection);
+
+        if (spawnPlatforms)
+            spawnedLine.SpawnMultiplePlatforms();
     }
 }
