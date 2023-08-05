@@ -133,7 +133,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 70844258}
-  m_Layer: 5
+  m_Layer: 31
   m_Name: MenuUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -287,6 +287,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adcae1d153559704093de58091a537d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ignoreUIElementLayerMask:
+    serializedVersion: 2
+    m_Bits: 2147483648
 --- !u!1 &240022179
 GameObject:
   m_ObjectHideFlags: 0
@@ -5171,7 +5174,7 @@ GameObject:
   - component: {fileID: 299797294}
   - component: {fileID: 299797296}
   - component: {fileID: 299797295}
-  m_Layer: 5
+  m_Layer: 31
   m_Name: FellText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5735,7 +5738,7 @@ GameObject:
   m_Component:
   - component: {fileID: 445500290}
   - component: {fileID: 445500291}
-  m_Layer: 5
+  m_Layer: 31
   m_Name: GameOverUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5789,7 +5792,7 @@ GameObject:
   - component: {fileID: 542504683}
   - component: {fileID: 542504685}
   - component: {fileID: 542504684}
-  m_Layer: 5
+  m_Layer: 31
   m_Name: ContinueText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5923,7 +5926,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 675987871}
-  m_Layer: 5
+  m_Layer: 31
   m_Name: Exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6066,7 +6069,7 @@ GameObject:
   - component: {fileID: 707273036}
   - component: {fileID: 707273038}
   - component: {fileID: 707273037}
-  m_Layer: 5
+  m_Layer: 31
   m_Name: ExitImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6140,7 +6143,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 819767260}
-  m_Layer: 5
+  m_Layer: 31
   m_Name: Replay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6405,7 +6408,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &865575106
 Transform:
@@ -6463,7 +6466,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 889931683}
-  m_Layer: 5
+  m_Layer: 31
   m_Name: Continue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6579,7 +6582,7 @@ GameObject:
   - component: {fileID: 1057903970}
   - component: {fileID: 1057903972}
   - component: {fileID: 1057903971}
-  m_Layer: 5
+  m_Layer: 31
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6656,7 +6659,7 @@ GameObject:
   - component: {fileID: 1126943223}
   - component: {fileID: 1126943222}
   - component: {fileID: 1126943221}
-  m_Layer: 5
+  m_Layer: 31
   m_Name: ExitButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6914,7 +6917,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0.00012207}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1481283151
 GameObject:
@@ -6928,7 +6931,7 @@ GameObject:
   - component: {fileID: 1481283155}
   - component: {fileID: 1481283154}
   - component: {fileID: 1481283153}
-  m_Layer: 5
+  m_Layer: 31
   m_Name: ReplayButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7048,7 +7051,7 @@ GameObject:
   - component: {fileID: 1493212299}
   - component: {fileID: 1493212301}
   - component: {fileID: 1493212300}
-  m_Layer: 5
+  m_Layer: 31
   m_Name: ExitImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7124,7 +7127,7 @@ GameObject:
   - component: {fileID: 1528166284}
   - component: {fileID: 1528166286}
   - component: {fileID: 1528166285}
-  m_Layer: 5
+  m_Layer: 31
   m_Name: ReplayImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7528,7 +7531,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1676832310
 Transform:
@@ -7704,7 +7707,7 @@ GameObject:
   - component: {fileID: 1691689152}
   - component: {fileID: 1691689154}
   - component: {fileID: 1691689153}
-  m_Layer: 5
+  m_Layer: 31
   m_Name: ContinueImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7812,7 +7815,7 @@ GameObject:
   - component: {fileID: 1767215920}
   - component: {fileID: 1767215919}
   - component: {fileID: 1767215918}
-  m_Layer: 5
+  m_Layer: 31
   m_Name: ContinueButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7979,7 +7982,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1827779618}
-  m_Layer: 5
+  m_Layer: 31
   m_Name: Fell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8019,7 +8022,7 @@ GameObject:
   - component: {fileID: 1895020054}
   - component: {fileID: 1895020053}
   - component: {fileID: 1895020052}
-  m_Layer: 5
+  m_Layer: 31
   m_Name: OpenMenuButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8137,7 +8140,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2033101100}
-  m_Layer: 5
+  m_Layer: 31
   m_Name: Exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8177,7 +8180,7 @@ GameObject:
   - component: {fileID: 2068004729}
   - component: {fileID: 2068004731}
   - component: {fileID: 2068004730}
-  m_Layer: 5
+  m_Layer: 31
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8254,7 +8257,7 @@ GameObject:
   - component: {fileID: 2083520111}
   - component: {fileID: 2083520110}
   - component: {fileID: 2083520109}
-  m_Layer: 5
+  m_Layer: 31
   m_Name: ExitButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}

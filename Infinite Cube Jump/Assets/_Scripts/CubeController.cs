@@ -17,7 +17,7 @@ public class CubeController : MonoBehaviour
 
     private void Update()
     {
-        if (PlayerInputHandler.Instance.IsMouseButtonDownThisFrame())
+        if (PlayerInputHandler.Instance.IsMouseButtonDownThisFrame()) 
             Jump();
     }
 

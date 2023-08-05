@@ -26,6 +26,7 @@ public class Platform : MonoBehaviour, IPlatform
     private Vector3 _lineDirection;
 
     private bool _canMove;
+    private bool _isLeading;
 
     private void Awake()
     {
@@ -50,11 +51,12 @@ public class Platform : MonoBehaviour, IPlatform
         CheckOutOfBounds();
     }
 
-    public void Initialize(PlatformLine platformLine, Vector3 lineDirection, Color platformColor)
+    public void Initialize(PlatformLine platformLine, Vector3 lineDirection, Color platformColor, bool isLeading)
     {
         _platformLine = platformLine;
         _lineDirection = lineDirection;
         _platformColor = platformColor;
+        _isLeading = isLeading;
 
         if (_lineDirection == Vector3.left)
             _moveSpeed = _extraSpeed;
@@ -64,6 +66,9 @@ public class Platform : MonoBehaviour, IPlatform
         _visualRenderer.material.color = _platformColor;
     }
 
+    public void SetLeading()
+        => _isLeading = true;
+    
     public void OnGrounded(GameObject cube)
     {
         OnCubeGrounded?.Invoke(this, new OnCubeGroundedArgs(_scoreToAdd, _platformLine));
@@ -92,6 +97,9 @@ public class Platform : MonoBehaviour, IPlatform
     
     private void CheckOutOfBounds()
     {
+        if (!_isLeading)
+            return;
+
         Vector3 screenPosition = _camera.WorldToScreenPoint(transform.position);
 
         if (_lineDirection == Vector3.right)
@@ -99,6 +107,7 @@ public class Platform : MonoBehaviour, IPlatform
             // If the platform is behind the left side of the screen
             if (screenPosition.x < -CAMERA_SAFETY_MARGIN)
             {
+                _isLeading = false;
                 transform.SetParent(null);
                 OnPlatformDisappeared?.Invoke(_platformLine, new OnPlatformDisappearedArgs(this));
                 PlatformPool.Instance.ReturnToPool(this);
@@ -114,6 +123,7 @@ public class Platform : MonoBehaviour, IPlatform
             // If the platform is behind the right side of the screen
             if (screenPosition.x > _screenWidth + CAMERA_SAFETY_MARGIN)
             {
+                _isLeading = false;
                 transform.SetParent(null);
                 OnPlatformDisappeared?.Invoke(_platformLine, new OnPlatformDisappearedArgs(this));
                 PlatformPool.Instance.ReturnToPool(this);

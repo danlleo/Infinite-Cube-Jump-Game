@@ -61,7 +61,7 @@ public class PlatformLine : MonoBehaviour
             platform.transform.SetParent(transform);
             platform.transform.position = _spawnPosition;
             platform.transform.right = _lineDirection;
-            platform.Initialize(this, _lineDirection, randomPlatformColor);
+            platform.Initialize(this, _lineDirection, randomPlatformColor, i == 0);
 
             AddDisplayedPlatform(platform);
             _spawnPosition = platform.GetGapAnchorPosition() - _lineDirection * _platformXGap;
@@ -75,6 +75,7 @@ public class PlatformLine : MonoBehaviour
         if (ReferenceEquals(senderPlatformLine, this))
         {
             RemoveDispalyedPlatform(e.RecievedPlatform);
+            _displayedPlatformList[0].SetLeading();
             SpawnSinglePlatform();
         }
     }
@@ -90,7 +91,7 @@ public class PlatformLine : MonoBehaviour
         platform.transform.SetParent(transform);
         platform.transform.position = _spawnPosition;
         platform.transform.right = _lineDirection;
-        platform.Initialize(this, _lineDirection, randomPlatformColor);
+        platform.Initialize(this, _lineDirection, randomPlatformColor, false);
 
         AddDisplayedPlatform(platform);
     }
