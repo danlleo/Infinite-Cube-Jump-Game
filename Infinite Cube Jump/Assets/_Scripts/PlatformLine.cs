@@ -5,6 +5,7 @@ public class PlatformLine : MonoBehaviour
 {
     [SerializeField] private float _movingSpeed = 2f;
     [SerializeField] private float _spawnDistanceFromCenter = 15f;
+    [SerializeField] private Color[] _platformColors;
 
     private int _platformSpawnCounter;
 
@@ -54,11 +55,13 @@ public class PlatformLine : MonoBehaviour
 
         for (int i = 0; i < _platformSpawnCounter; i++)
         {
+            Color randomPlatformColor = _platformColors[Random.Range(0, _platformColors.Length - 1)];
+
             Platform platform = PlatformPool.Instance.GetPooledObject();
             platform.transform.SetParent(transform);
             platform.transform.position = _spawnPosition;
             platform.transform.right = _lineDirection;
-            platform.Initalize(this, _lineDirection);
+            platform.Initialize(this, _lineDirection, randomPlatformColor);
 
             AddDisplayedPlatform(platform);
             _spawnPosition = platform.GetGapAnchorPosition() - _lineDirection * _platformXGap;
@@ -78,6 +81,8 @@ public class PlatformLine : MonoBehaviour
 
     private void SpawnSinglePlatform()
     {
+        Color randomPlatformColor = _platformColors[Random.Range(0, _platformColors.Length - 1)];
+
         _spawnPosition = GetLastDisplayedPlatform()
             .GetGapAnchorPosition() - _lineDirection * _platformXGap;
         
@@ -85,7 +90,7 @@ public class PlatformLine : MonoBehaviour
         platform.transform.SetParent(transform);
         platform.transform.position = _spawnPosition;
         platform.transform.right = _lineDirection;
-        platform.Initalize(this, _lineDirection);
+        platform.Initialize(this, _lineDirection, randomPlatformColor);
 
         AddDisplayedPlatform(platform);
     }

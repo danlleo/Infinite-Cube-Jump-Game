@@ -1,7 +1,10 @@
+using System;
 using UnityEngine;
 
 public class Cube : MonoBehaviour
 {
+    public static event EventHandler OnCubeFell;
+
     [SerializeField] private GameObject _scoredAnimationPrefab;
     [SerializeField] private Transform _scoredAnimationSpawnPosition;
     [SerializeField] private Transform _raycastPosition;
@@ -24,22 +27,30 @@ public class Cube : MonoBehaviour
         Platform.OnCubeGrounded -= Platform_OnCubeGrounded;
     }
 
+    public void TriggerCubeFellEvent()
+        => OnCubeFell?.Invoke(this, EventArgs.Empty);
+
     private void Platform_OnCubeGrounded(object sender, OnCubeGroundedArgs e)
     {
         GameObject spawnedScoredAnimation = Instantiate(_scoredAnimationPrefab, _scoredAnimationSpawnPosition);
+        spawnedScoredAnimation.transform.SetParent(null);
 
         if (spawnedScoredAnimation.TryGetComponent(out ScoredAnimation scoredAnimation))
             scoredAnimation.Initialize(e.ScoreToAdd.ToString());
 
-        Destroy(spawnedScoredAnimation, .2f);
+        Destroy(spawnedScoredAnimation, 1f);
     }
 
-    private void CubeController_OnCubeStartedJump(object sender, System.EventArgs e)
+    private void CubeController_OnCubeStartedJump(object sender, EventArgs e)
     {
+        ResetPosition();
         _platform?.OnLeftGround(gameObject);
     }
 
-    private void CubeController_OnCubePerformedJump(object sender, System.EventArgs e)
+    private void ResetPosition()
+        => transform.position = new Vector3(transform.position.x, 1f, transform.position.z);
+
+    private void CubeController_OnCubePerformedJump(object sender, EventArgs e)
     {
         if (Physics.Raycast(_raycastPosition.position, -transform.up, out RaycastHit hit, _raycastDistance))
         {
@@ -54,11 +65,8 @@ public class Cube : MonoBehaviour
         {
             // Missed
             gameObject.AddComponent<Rigidbody>();
+            OnCubeFell?.Invoke(this, EventArgs.Empty);
+            VibrationPlayer.TriggerVibration();
         }
-    }
-
-    public void OnInvisible()
-    {
-        print("Game Over");
     }
 }

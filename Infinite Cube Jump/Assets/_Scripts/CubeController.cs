@@ -12,8 +12,6 @@ public class CubeController : MonoBehaviour
     [SerializeField] private float _jumpHeight = 2f;
     [SerializeField] private float _forwardSpeed = 5f;
     [SerializeField] private float _jumpDuration = 1f;
-
-    [SerializeField] private AudioClip _jumpSound;
     
     private Coroutine _jumpCoroutine;
 
@@ -28,7 +26,6 @@ public class CubeController : MonoBehaviour
         if (_jumpCoroutine != null)
             return;
 
-        AudioSource.PlayClipAtPoint(_jumpSound, transform.position);
         OnCubeStartedJump?.Invoke(this, EventArgs.Empty);
         _jumpCoroutine = StartCoroutine(JumpRoutine());
     }

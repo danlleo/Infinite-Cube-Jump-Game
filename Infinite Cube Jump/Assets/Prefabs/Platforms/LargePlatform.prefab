@@ -68,7 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b406a6af458b6d4e845a9a3bd16d3a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _platformRenderer: {fileID: 3299365776025759651}
+  _visualRenderer: {fileID: 3299365776025759651}
   _gapAnchorPosition: {fileID: 6554174559290886619}
   _scoreToAdd: 1
 --- !u!1 &3012151112342656286

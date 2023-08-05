@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a7dfc8eb5a9cc949a777867342f57ef, type: 3}
+  m_Name: AudioClips
+  m_EditorClassIdentifier: 
+  JumpedClip: {fileID: 8300000, guid: 31f802150ab6c7a43a2092eab08d3b36, type: 3}
+  LandedClip: {fileID: 8300000, guid: 316922219368ea24d9a29ff1bacde9ed, type: 3}
+  FellClip: {fileID: 8300000, guid: 17c360f664614784fafb6ee043bee1b7, type: 3}

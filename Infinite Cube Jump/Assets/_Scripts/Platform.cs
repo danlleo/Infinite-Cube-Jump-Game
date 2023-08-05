@@ -9,22 +9,39 @@ public class Platform : MonoBehaviour, IPlatform
     public static event EventHandler<OnCubeGroundedArgs> OnCubeGrounded;
     public static event EventHandler<OnPlatformDisappearedArgs> OnPlatformDisappeared;
 
+    [SerializeField] private MeshRenderer _visualRenderer;
     [SerializeField] private Transform _gapAnchorPosition;
     [SerializeField] private int _scoreToAdd;
 
+    private float _moveSpeed;
     private float _screenWidth;
-    private float _moveSpeed = 2.5f;
+    private float _defaultSpeed = 2.7f;
+    private float _extraSpeed = 3.75f;
     private float _landingAnimationDuration = .1f;
     private float _downAnimationValue = .25f;
 
+    private Color _platformColor;
     private PlatformLine _platformLine;
     private Camera _camera;
     private Vector3 _lineDirection;
+
+    private bool _canMove;
 
     private void Awake()
     {
         _camera = Camera.main;
         _screenWidth = Screen.width;
+        _canMove = true;
+    }
+
+    private void OnEnable()
+    {
+        Cube.OnCubeFell += Cube_OnCubeFell;
+    }
+
+    private void OnDisable()
+    {
+        Cube.OnCubeFell -= Cube_OnCubeFell;
     }
 
     private void Update()
@@ -33,10 +50,18 @@ public class Platform : MonoBehaviour, IPlatform
         CheckOutOfBounds();
     }
 
-    public void Initalize(PlatformLine platformLine, Vector3 lineDirection)
+    public void Initialize(PlatformLine platformLine, Vector3 lineDirection, Color platformColor)
     {
         _platformLine = platformLine;
         _lineDirection = lineDirection;
+        _platformColor = platformColor;
+
+        if (_lineDirection == Vector3.left)
+            _moveSpeed = _extraSpeed;
+        else if (_lineDirection == Vector3.right)
+            _moveSpeed = _defaultSpeed;
+        
+        _visualRenderer.material.color = _platformColor;
     }
 
     public void OnGrounded(GameObject cube)
@@ -53,8 +78,17 @@ public class Platform : MonoBehaviour, IPlatform
 
     public Vector3 GetGapAnchorPosition() => _gapAnchorPosition.position;
 
+    private void Cube_OnCubeFell(object sender, EventArgs e)
+    {
+        _canMove = false;
+    }
+
     private void MovePlatform()
-        => transform.position += _moveSpeed * Time.deltaTime * _lineDirection;
+    {
+        if (!_canMove) return;
+
+        transform.position += _moveSpeed * Time.deltaTime * _lineDirection;
+    }
     
     private void CheckOutOfBounds()
     {
@@ -68,6 +102,11 @@ public class Platform : MonoBehaviour, IPlatform
                 transform.SetParent(null);
                 OnPlatformDisappeared?.Invoke(_platformLine, new OnPlatformDisappearedArgs(this));
                 PlatformPool.Instance.ReturnToPool(this);
+                
+                if (ComponentExtensions.TryGetComponentInChildren(gameObject, out Cube cube))
+                {
+                    cube.TriggerCubeFellEvent();
+                }
             }   
         }
         else if (_lineDirection == Vector3.left)
@@ -78,6 +117,11 @@ public class Platform : MonoBehaviour, IPlatform
                 transform.SetParent(null);
                 OnPlatformDisappeared?.Invoke(_platformLine, new OnPlatformDisappearedArgs(this));
                 PlatformPool.Instance.ReturnToPool(this);
+
+                if (ComponentExtensions.TryGetComponentInChildren(gameObject, out Cube cube))
+                {
+                    cube.TriggerCubeFellEvent();
+                }
             }
         }
     }

@@ -60,7 +60,7 @@ public class PlatformLineGenerator : MonoBehaviour
         _spawnPosition += Vector3.forward * _zLineAxisGap;
 
         PlatformLine spawnedLine = LinePool.Instance.GetPooledObject();
-        Vector3 lineDirection = _platformCount % 2 == 0 ? Vector3.right : Vector3.left;
+        Vector3 lineDirection = _platformCount % 2 == 0 ? Vector3.left : Vector3.right;
         
         _displayedPlatformLineList.Add(spawnedLine);
 
