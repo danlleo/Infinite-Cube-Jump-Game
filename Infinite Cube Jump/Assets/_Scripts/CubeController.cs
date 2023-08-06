@@ -15,9 +15,29 @@ public class CubeController : MonoBehaviour
     
     private Coroutine _jumpCoroutine;
 
+    private bool _canJump;
+
+    private void Awake()
+        => _canJump = true;
+
+    private void OnEnable()
+    {
+        Cube.OnCubeFell += Cube_OnCubeFell;
+    }
+
+    private void OnDisable()
+    {
+        Cube.OnCubeFell -= Cube_OnCubeFell;
+    }
+
+    private void Cube_OnCubeFell(object sender, EventArgs e)
+    {
+        _canJump = false;
+    }
+
     private void Update()
     {
-        if (PlayerInputHandler.Instance.IsMouseButtonDownThisFrame()) 
+        if (PlayerInputHandler.Instance.IsMouseButtonDownThisFrame() && _canJump) 
             Jump();
     }
 
