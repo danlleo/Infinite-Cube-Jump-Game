@@ -4,11 +4,8 @@ using UnityEngine;
 
 public class LinePool : Singleton<LinePool>
 {
-    [SerializeField] private Queue<PlatformLine> _platformLinePool = new Queue<PlatformLine>();
     [SerializeField] private PlatformLine _platformLinePrefab;
-
-    protected override void Awake()
-        => base.Awake();
+    private readonly Queue<PlatformLine> _platformLinePool = new();
 
     public PlatformLine GetPooledObject()
     {

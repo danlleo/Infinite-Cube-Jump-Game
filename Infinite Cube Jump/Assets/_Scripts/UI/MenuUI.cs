@@ -1,68 +1,59 @@
+using Extensions;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MenuUI : MonoBehaviour
+namespace UI
 {
-    [SerializeField] private GameObject _menuUI;
-    [SerializeField] private Button _continueButton;
-    [SerializeField] private Button _exitButton;
-
-    private void Awake()
+    [DisallowMultipleComponent]
+    public class MenuUI : MonoBehaviour
     {
-        HideUI();
-    }
+        [SerializeField] private GameObject _menuUI;
+        [SerializeField] private Button _continueButton;
+        [SerializeField] private Button _exitButton;
 
-    private void OnEnable()
-    {
-        ControlsUI.OnMainMenuOpen += ControlsUI_OnMainMenuOpen;
-        Cube.OnCubeFell += Cube_OnCubeFell;
-
-        ButtonExtensions.Add(_continueButton, () =>
+        private void Awake()
         {
             HideUI();
-        });
+        }
 
-        ButtonExtensions.Add(_exitButton, () =>
+        private void OnEnable()
         {
-            QuitGame();
-        });
-    }
+            ControlsUI.OnMainMenuOpen += ControlsUI_OnMainMenuOpen;
+            Cube.OnCubeFell += Cube_OnCubeFell;
 
-    private void OnDisable()
-    {
-        ControlsUI.OnMainMenuOpen -= ControlsUI_OnMainMenuOpen;
-        Cube.OnCubeFell -= Cube_OnCubeFell;
+            _continueButton.Add(HideUI);
+            _exitButton.Add(QuitGame);
+        }
 
-        ButtonExtensions.Remove(_continueButton, () =>
+        private void OnDisable()
+        {
+            ControlsUI.OnMainMenuOpen -= ControlsUI_OnMainMenuOpen;
+            Cube.OnCubeFell -= Cube_OnCubeFell;
+
+            _continueButton.Remove(HideUI);
+            _exitButton.Remove(QuitGame);
+        }
+
+        private void QuitGame()
+            => Application.Quit();
+
+        private void ShowUI() => _menuUI.SetActive(true);
+
+        private void HideUI()
+        {
+            GameManager.Instance.ResumeTime();
+            _menuUI.SetActive(false);
+        }
+
+        private void Cube_OnCubeFell(object sender, System.EventArgs e)
         {
             HideUI();
-        });
+        }
 
-        ButtonExtensions.Remove(_exitButton, () =>
+        private void ControlsUI_OnMainMenuOpen(object sender, System.EventArgs e)
         {
-            QuitGame();
-        });
-    }
-
-    private void QuitGame()
-        => Application.Quit();
-
-    private void Cube_OnCubeFell(object sender, System.EventArgs e)
-    {
-        HideUI();
-    }
-
-    private void ControlsUI_OnMainMenuOpen(object sender, System.EventArgs e)
-    {
-        ShowUI();
-        GameManager.Instance.StopTime();
-    }
-
-    private void ShowUI() => _menuUI.SetActive(true);
-
-    private void HideUI()
-    {
-        GameManager.Instance.ResumeTime();
-        _menuUI.SetActive(false);
+            ShowUI();
+            GameManager.Instance.StopTime();
+        }
     }
 }

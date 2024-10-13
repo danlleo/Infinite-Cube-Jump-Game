@@ -1,9 +1,12 @@
 using UnityEngine;
 
-[CreateAssetMenu()]
-public class AudioClipRefsSO : ScriptableObject
+namespace ScriptableObjects
 {
-    public AudioClip JumpedClip;
-    public AudioClip LandedClip;
-    public AudioClip FellClip;
+    [CreateAssetMenu]
+    public class AudioClipRefsSO : ScriptableObject
+    {
+        [field: SerializeField] public AudioClip JumpedClip { get; private set; }
+        [field: SerializeField] public AudioClip LandedClip { get; private set; }
+        [field: SerializeField] public AudioClip FellClip { get; private set; }
+    }
 }

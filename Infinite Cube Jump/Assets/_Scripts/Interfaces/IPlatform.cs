@@ -1,8 +1,11 @@
 using UnityEngine;
 
-public interface IPlatform
+namespace Interfaces
 {
-    void OnGrounded(GameObject cube);
+    public interface IPlatform
+    {
+        void OnGrounded(GameObject cube);
 
-    void OnLeftGround(GameObject cube);
+        void OnLeftGround(GameObject cube);
+    }
 }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[DisallowMultipleComponent]
 public class PlatformLine : MonoBehaviour
 {
     [SerializeField] private float _movingSpeed = 2f;
@@ -14,7 +15,7 @@ public class PlatformLine : MonoBehaviour
     private Vector3 _lineDirection;
     private Vector3 _spawnPosition;
 
-    private List<Platform> _displayedPlatformList = new();
+    private readonly List<Platform> _displayedPlatformList = new();
 
     private void Start()
     {
@@ -74,7 +75,7 @@ public class PlatformLine : MonoBehaviour
 
         if (ReferenceEquals(senderPlatformLine, this))
         {
-            RemoveDispalyedPlatform(e.RecievedPlatform);
+            RemoveDisplayedPlatform(e.RecievedPlatform);
             _displayedPlatformList[0].SetLeading();
             SpawnSinglePlatform();
         }
@@ -99,7 +100,7 @@ public class PlatformLine : MonoBehaviour
     private void AddDisplayedPlatform(Platform platform)
         => _displayedPlatformList.Add(platform);
 
-    private void RemoveDispalyedPlatform(Platform platform)
+    private void RemoveDisplayedPlatform(Platform platform)
         => _displayedPlatformList.Remove(platform);
 
     private Platform GetLastDisplayedPlatform()

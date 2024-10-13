@@ -1,48 +1,47 @@
 using System;
+using Extensions;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ControlsUI : MonoBehaviour
+namespace UI
 {
-    public static event EventHandler OnMainMenuOpen;
-
-    [SerializeField] private GameObject _controlsUI;
-    [SerializeField] private Button _openMenuButton;
-
-    private void Awake()
+    [DisallowMultipleComponent]
+    public class ControlsUI : MonoBehaviour
     {
-        ShowUI();
-    }
+        public static event EventHandler OnMainMenuOpen;
 
-    private void OnEnable()
-    {
-        Cube.OnCubeFell += Cube_OnCubeFell;
+        [SerializeField] private GameObject _controlsUI;
+        [SerializeField] private Button _openMenuButton;
 
-        ButtonExtensions.Add(_openMenuButton, () =>
+        private void Awake()
         {
-            OpenMainMenu();
-        });
-    }
+            ShowUI();
+        }
 
-    private void OnDisable()
-    {
-        Cube.OnCubeFell -= Cube_OnCubeFell;
-
-        ButtonExtensions.Remove(_openMenuButton, () =>
+        private void OnEnable()
         {
-            OpenMainMenu();
-        });
+            Cube.OnCubeFell += Cube_OnCubeFell;
+
+            _openMenuButton.Add(OpenMainMenu);
+        }
+
+        private void OnDisable()
+        {
+            Cube.OnCubeFell -= Cube_OnCubeFell;
+
+            _openMenuButton.Remove(OpenMainMenu);
+        }
+
+        private void Cube_OnCubeFell(object sender, EventArgs e)
+        {
+            HideUI();
+        }
+
+        private void OpenMainMenu()
+            => OnMainMenuOpen?.Invoke(this, EventArgs.Empty);
+
+        private void ShowUI() => _controlsUI.SetActive(true);
+
+        private void HideUI() => _controlsUI.SetActive(false);
     }
-
-    private void Cube_OnCubeFell(object sender, EventArgs e)
-    {
-        HideUI();
-    }
-
-    private void OpenMainMenu()
-        => OnMainMenuOpen?.Invoke(this, EventArgs.Empty);
-
-    private void ShowUI() => _controlsUI.SetActive(true);
-
-    private void HideUI() => _controlsUI.SetActive(false);
 }

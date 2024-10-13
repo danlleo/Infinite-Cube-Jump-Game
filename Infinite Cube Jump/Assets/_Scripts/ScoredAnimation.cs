@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 
+[DisallowMultipleComponent]
 public class ScoredAnimation : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _scoredText;

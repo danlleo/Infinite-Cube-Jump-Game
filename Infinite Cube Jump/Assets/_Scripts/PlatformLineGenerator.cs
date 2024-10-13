@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[DisallowMultipleComponent]
 public class PlatformLineGenerator : MonoBehaviour
 {
     [SerializeField] private Transform _levelTransform;
@@ -13,7 +14,7 @@ public class PlatformLineGenerator : MonoBehaviour
 
     private Vector3 _spawnPosition;
 
-    private List<PlatformLine> _displayedPlatformLineList = new();
+    private readonly List<PlatformLine> _displayedPlatformLineList = new();
 
     private int _platformCount;
 
@@ -37,13 +38,11 @@ public class PlatformLineGenerator : MonoBehaviour
         PlatformLine firstDisplayedPlatformLine = _displayedPlatformLineList[0];
 
         // If received platform isn't previous one
-        if (!ReferenceEquals(e.GroundedPlatformLine, firstDisplayedPlatformLine))
-        {
-            firstDisplayedPlatformLine.Reset();
-            LinePool.Instance.ReturnToPool(firstDisplayedPlatformLine);
-            _displayedPlatformLineList.Remove(firstDisplayedPlatformLine);
-            SpawnSingleLine(true);  
-        }
+        if (ReferenceEquals(e.GroundedPlatformLine, firstDisplayedPlatformLine)) return;
+        firstDisplayedPlatformLine.Reset();
+        LinePool.Instance.ReturnToPool(firstDisplayedPlatformLine);
+        _displayedPlatformLineList.Remove(firstDisplayedPlatformLine);
+        SpawnSingleLine(true);
     }
 
     private void SpawnLinesOnAwake()

@@ -1,10 +1,14 @@
 using System;
 using System.Collections;
+using Extensions;
+using Interfaces;
 using UnityEngine;
+using Utils;
 
+[DisallowMultipleComponent]
 public class Platform : MonoBehaviour, IPlatform
 {
-    private const float CAMERA_SAFETY_MARGIN = 300f;
+    private const float CameraSafetyMargin = 300f;
 
     public static event EventHandler<OnCubeGroundedArgs> OnCubeGrounded;
     public static event EventHandler<OnPlatformDisappearedArgs> OnPlatformDisappeared;
@@ -15,10 +19,10 @@ public class Platform : MonoBehaviour, IPlatform
 
     private float _moveSpeed;
     private float _screenWidth;
-    private float _defaultSpeed = 2.7f;
-    private float _extraSpeed = 3.75f;
-    private float _landingAnimationDuration = .1f;
-    private float _downAnimationValue = .25f;
+    private readonly float _defaultSpeed = 2.7f;
+    private readonly float _extraSpeed = 3.75f;
+    private readonly float _landingAnimationDuration = .1f;
+    private readonly float _downAnimationValue = .25f;
 
     private Color _platformColor;
     private PlatformLine _platformLine;
@@ -105,33 +109,30 @@ public class Platform : MonoBehaviour, IPlatform
         if (_lineDirection == Vector3.right)
         {
             // If the platform is behind the left side of the screen
-            if (screenPosition.x < -CAMERA_SAFETY_MARGIN)
-            {
-                _isLeading = false;
-                transform.SetParent(null);
-                OnPlatformDisappeared?.Invoke(_platformLine, new OnPlatformDisappearedArgs(this));
-                PlatformPool.Instance.ReturnToPool(this);
+            if (!(screenPosition.x < -CameraSafetyMargin)) return;
+            
+            _isLeading = false;
+            transform.SetParent(null);
+            OnPlatformDisappeared?.Invoke(_platformLine, new OnPlatformDisappearedArgs(this));
+            PlatformPool.Instance.ReturnToPool(this);
                 
-                if (ComponentExtensions.TryGetComponentInChildren(gameObject, out Cube cube))
-                {
-                    cube.TriggerCubeFellEvent();
-                }
-            }   
+            if (ComponentExtensions.TryGetComponentInChildren(gameObject, out Cube cube))
+            {
+                cube.TriggerCubeFellEvent();
+            }
         }
         else if (_lineDirection == Vector3.left)
         {
             // If the platform is behind the right side of the screen
-            if (screenPosition.x > _screenWidth + CAMERA_SAFETY_MARGIN)
-            {
-                _isLeading = false;
-                transform.SetParent(null);
-                OnPlatformDisappeared?.Invoke(_platformLine, new OnPlatformDisappearedArgs(this));
-                PlatformPool.Instance.ReturnToPool(this);
+            if (!(screenPosition.x > _screenWidth + CameraSafetyMargin)) return;
+            _isLeading = false;
+            transform.SetParent(null);
+            OnPlatformDisappeared?.Invoke(_platformLine, new OnPlatformDisappearedArgs(this));
+            PlatformPool.Instance.ReturnToPool(this);
 
-                if (ComponentExtensions.TryGetComponentInChildren(gameObject, out Cube cube))
-                {
-                    cube.TriggerCubeFellEvent();
-                }
+            if (ComponentExtensions.TryGetComponentInChildren(gameObject, out Cube cube))
+            {
+                cube.TriggerCubeFellEvent();
             }
         }
     }

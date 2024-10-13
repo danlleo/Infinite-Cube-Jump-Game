@@ -4,11 +4,8 @@ using UnityEngine;
 
 public class PlatformPool : Singleton<PlatformPool>
 {
-    [SerializeField] private Queue<Platform> _platformPool = new Queue<Platform>();
     [SerializeField] private List<Platform> _platformPrefabList;
-
-    protected override void Awake()
-        => base.Awake();
+    private readonly Queue<Platform> _platformPool = new();
 
     public Platform GetPooledObject()
     {

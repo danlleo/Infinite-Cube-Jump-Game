@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[DisallowMultipleComponent]
 public class CameraFollow : MonoBehaviour
 {
     [SerializeField] private Transform _objectToFollow;

@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7dfc8eb5a9cc949a777867342f57ef, type: 3}
   m_Name: AudioClips
   m_EditorClassIdentifier: 
-  JumpedClip: {fileID: 8300000, guid: 31f802150ab6c7a43a2092eab08d3b36, type: 3}
-  LandedClip: {fileID: 8300000, guid: 316922219368ea24d9a29ff1bacde9ed, type: 3}
-  FellClip: {fileID: 8300000, guid: 17c360f664614784fafb6ee043bee1b7, type: 3}
+  <JumpedClip>k__BackingField: {fileID: 8300000, guid: 31f802150ab6c7a43a2092eab08d3b36,
+    type: 3}
+  <LandedClip>k__BackingField: {fileID: 8300000, guid: 316922219368ea24d9a29ff1bacde9ed,
+    type: 3}
+  <FellClip>k__BackingField: {fileID: 8300000, guid: 17c360f664614784fafb6ee043bee1b7,
+    type: 3}

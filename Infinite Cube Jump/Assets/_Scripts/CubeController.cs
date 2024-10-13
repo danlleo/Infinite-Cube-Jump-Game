@@ -1,13 +1,18 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
+[DisallowMultipleComponent]
 public class CubeController : MonoBehaviour
 {
     public static event EventHandler OnCubeStartedJump;
     public static event EventHandler OnCubePerformedJump;
 
     [SerializeField] AnimationCurve _jumpingAnimationCurve;
+    [SerializeField] GraphicRaycaster _uiRaycaster;
 
     [SerializeField] private float _jumpHeight = 2f;
     [SerializeField] private float _forwardSpeed = 5f;
@@ -16,9 +21,17 @@ public class CubeController : MonoBehaviour
     private Coroutine _jumpCoroutine;
 
     private bool _canJump;
+    
+    private PointerEventData _pointerEventData;
+    private EventSystem _eventSystem;
 
     private void Awake()
         => _canJump = true;
+
+    private void Start()
+    {
+        _eventSystem = EventSystem.current;
+    }
 
     private void OnEnable()
     {
@@ -30,15 +43,23 @@ public class CubeController : MonoBehaviour
         Cube.OnCubeFell -= Cube_OnCubeFell;
     }
 
-    private void Cube_OnCubeFell(object sender, EventArgs e)
-    {
-        _canJump = false;
-    }
-
     private void Update()
     {
-        if (PlayerInputHandler.Instance.IsMouseButtonDownThisFrame() && _canJump) 
+        if (PlayerInputHandler.Instance.IsMouseButtonDownThisFrame() && _canJump && !IsPointerOverUI())
             Jump();
+    }
+
+    private bool IsPointerOverUI()
+    {
+        _pointerEventData = new PointerEventData(_eventSystem)
+        {
+            position = Input.mousePosition
+        };
+
+        List<RaycastResult> results = new();
+        _uiRaycaster.Raycast(_pointerEventData, results);
+
+        return results.Count > 0;
     }
 
     private void Jump()
@@ -79,5 +100,10 @@ public class CubeController : MonoBehaviour
         transform.position = finalPosition;
 
         _jumpCoroutine = null;
+    }
+
+    private void Cube_OnCubeFell(object sender, EventArgs e)
+    {
+        _canJump = false;
     }
 }
