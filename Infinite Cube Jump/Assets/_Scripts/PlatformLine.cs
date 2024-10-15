@@ -50,6 +50,12 @@ public class PlatformLine : MonoBehaviour
         _displayedPlatformList.Clear();
     }
 
+    public void FadeOutAllCubes()
+    {
+        foreach (Platform platform in _displayedPlatformList) 
+            platform.FadeOut();
+    }
+
     public void SpawnMultiplePlatforms()
     {
         _spawnPosition = transform.position;

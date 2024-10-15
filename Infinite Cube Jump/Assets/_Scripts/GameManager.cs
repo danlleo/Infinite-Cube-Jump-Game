@@ -1,8 +1,14 @@
-using UnityEngine;
+﻿using UnityEngine;
 
-public class GameManager : Singleton<GameManager>
+[DisallowMultipleComponent]
+public class GameManager : MonoBehaviour
 {
-    public void StopTime() => Time.timeScale = 0f;
+    private GoogleLoginManager _googleLoginManager;
+    private FirestoreManager _firestoreManager;
 
-    public void ResumeTime() => Time.timeScale = 1f;
+    private void Start()
+    {
+        _googleLoginManager.Initialize();
+        _firestoreManager.Initialize();
+    }
 }

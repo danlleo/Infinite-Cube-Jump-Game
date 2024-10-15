@@ -70,3 +70,12 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 [Aa]ssets/[Ss]treamingAssets/aa.meta
 [Aa]ssets/[Ss]treamingAssets/aa/*
+/Infinite Cube Jump/Assets/Editor Default Resources
+/Infinite Cube Jump/Assets/ExternalDependencyManager
+/Infinite Cube Jump/Assets/Firebase/Editor
+/Infinite Cube Jump/Assets/Firebase/m2repository
+/Infinite Cube Jump/Assets/Firebase/Plugins
+/Infinite Cube Jump/Assets/Plugins/iOS/Firebase
+/Infinite Cube Jump/Assets/Plugins/tvOS/Firebase
+/Infinite Cube Jump/Assets/Plugins/Demigiant/DOTween/Modules
+/Infinite Cube Jump/Assets/Plugins/Demigiant/DOTween

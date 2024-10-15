@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "526095012636",
+    "project_id": "infinitecube-3cb04",
+    "storage_bucket": "infinitecube-3cb04.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:526095012636:android:e5bf89fa5378798afce0d9",
+        "android_client_info": {
+          "package_name": "com.UnityTechnologies.com.unity.template.urpblank"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "526095012636-6e39haitog9gg4rt6fol8trmsjqrbtpc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAaMVzoXpLkNBNWPUc4RaPiTzBvnlbhS1A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "526095012636-6e39haitog9gg4rt6fol8trmsjqrbtpc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

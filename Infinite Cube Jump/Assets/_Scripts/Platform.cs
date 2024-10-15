@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using DG.Tweening;
 using Extensions;
 using Interfaces;
 using UnityEngine;
@@ -8,6 +9,7 @@ using Utils;
 [DisallowMultipleComponent]
 public class Platform : MonoBehaviour, IPlatform
 {
+    private static readonly int s_transparencyValue = Shader.PropertyToID("_TransparencyValue");
     private const float CameraSafetyMargin = 300f;
 
     public static event EventHandler<OnCubeGroundedArgs> OnCubeGrounded;
@@ -31,6 +33,7 @@ public class Platform : MonoBehaviour, IPlatform
 
     private bool _canMove;
     private bool _isLeading;
+    private static readonly int s_color = Shader.PropertyToID("_Color");
 
     private void Awake()
     {
@@ -67,7 +70,8 @@ public class Platform : MonoBehaviour, IPlatform
         else if (_lineDirection == Vector3.right)
             _moveSpeed = _defaultSpeed;
         
-        _visualRenderer.material.color = _platformColor;
+        _visualRenderer.material.SetColor(s_color, _platformColor);
+        SetInitialAlpha();
     }
 
     public void SetLeading()
@@ -87,6 +91,12 @@ public class Platform : MonoBehaviour, IPlatform
 
     public Vector3 GetGapAnchorPosition() => _gapAnchorPosition.position;
 
+    public void FadeOut()
+        => _visualRenderer.material.DOFloat(0f, s_transparencyValue, 0.3f);
+
+    private void SetInitialAlpha()
+        => _visualRenderer.material.SetFloat(s_transparencyValue, 1f);
+    
     private void Cube_OnCubeFell(object sender, EventArgs e)
     {
         _canMove = false;

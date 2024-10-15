@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 [DisallowMultipleComponent]
@@ -36,13 +37,18 @@ public class PlatformLineGenerator : MonoBehaviour
     private void Platform_OnCubeGrounded(object sender, OnCubeGroundedArgs e)
     {
         PlatformLine firstDisplayedPlatformLine = _displayedPlatformLineList[0];
-
+        
         // If received platform isn't previous one
         if (ReferenceEquals(e.GroundedPlatformLine, firstDisplayedPlatformLine)) return;
-        firstDisplayedPlatformLine.Reset();
-        LinePool.Instance.ReturnToPool(firstDisplayedPlatformLine);
-        _displayedPlatformLineList.Remove(firstDisplayedPlatformLine);
-        SpawnSingleLine(true);
+        
+        firstDisplayedPlatformLine.FadeOutAllCubes();
+        firstDisplayedPlatformLine.transform.DOMoveY(-1f, 0.3f).OnComplete(() =>
+        {
+            firstDisplayedPlatformLine.Reset();
+            LinePool.Instance.ReturnToPool(firstDisplayedPlatformLine);
+            _displayedPlatformLineList.Remove(firstDisplayedPlatformLine);
+            SpawnSingleLine(true);
+        });
     }
 
     private void SpawnLinesOnAwake()

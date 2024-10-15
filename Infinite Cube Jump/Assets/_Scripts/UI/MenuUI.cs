@@ -41,7 +41,7 @@ namespace UI
 
         private void HideUI()
         {
-            GameManager.Instance.ResumeTime();
+            TimeManager.Instance.ResumeTime();
             _menuUI.SetActive(false);
         }
 
@@ -53,7 +53,7 @@ namespace UI
         private void ControlsUI_OnMainMenuOpen(object sender, System.EventArgs e)
         {
             ShowUI();
-            GameManager.Instance.StopTime();
+            TimeManager.Instance.StopTime();
         }
     }
 }
